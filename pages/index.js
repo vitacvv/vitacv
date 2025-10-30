@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/globals.module.css";
+import "../styles/globals.css";
 
 export default function Home() {
   return (
@@ -12,10 +12,10 @@ export default function Home() {
         />
       </Head>
 
-      <div className={styles.container}>
-        <nav className={styles.nav}>
-          <h1 className={styles.logo}>VitaCV</h1>
-          <ul className={styles.menu}>
+      <div className="container">
+        <nav className="nav">
+          <h1 className="logo">VitaCV</h1>
+          <ul className="menu">
             <li>Features</li>
             <li>Templates</li>
             <li>Builder</li>
@@ -23,15 +23,15 @@ export default function Home() {
           </ul>
         </nav>
 
-        <section className={styles.hero}>
-          <h2 className={styles.title}>Build a beautiful CV — effortlessly.</h2>
-          <p className={styles.subtitle}>
+        <section className="hero">
+          <h2 className="title">Build a beautiful CV — effortlessly.</h2>
+          <p className="subtitle">
             Create elegant, minimalist resumes with VitaCV's intuitive builder.
           </p>
-          <button className={styles.button}>Start Building</button>
+          <button className="button">Start Building</button>
         </section>
 
-        <footer className={styles.footer}>
+        <footer className="footer">
           <p>© {new Date().getFullYear()} VitaCV. All rights reserved.</p>
         </footer>
       </div>
