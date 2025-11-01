@@ -1,11 +1,106 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* --- VitaCV Global Styles --- */
+:root {
+  --bg-color: #f8f5f0; /* Soft beige background */
+  --accent-color: #d97706; /* Orange accent */
+  --text-color: #1f2937; /* Dark neutral text */
+  --soft-green: #94a38d; /* Calm green for buttons or highlights */
+  --card-bg: #ffffff;
+  --card-border: #d1d5db;
+}
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #fffaf5;
-  color: #222;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   padding: 0;
+  line-height: 1.6;
+}
+
+/* --- Navbar --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--card-border);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  margin-left: 1.5rem;
+  font-weight: 500;
+}
+
+/* --- Hero Section --- */
+.hero {
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  background-color: var(--bg-color);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.hero p {
+  color: #4b5563;
+  max-width: 600px;
+  margin: 1rem auto 2rem;
+}
+
+.hero button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.hero button:hover {
+  background-color: #ea580c;
+}
+
+/* --- Feature Cards --- */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.feature-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-card h3 {
+  color: var(--soft-green);
+  font-size: 1.1rem;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--card-border);
 }
