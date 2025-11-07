@@ -1,97 +1,136 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const templates = [
-  { id: 1, name: "Corporate Europe", img: "/template_images/corporate.jpg", pro: false },
-  { id: 2, name: "Minimal Nordic", img: "/template_images/nordic.jpg", pro: false },
-  { id: 3, name: "Modern Creative", img: "/template_images/creative.jpg", pro: true },
-  { id: 4, name: "Student Compact", img: "/template_images/student.jpg", pro: false },
-  { id: 5, name: "Tech International", img: "/template_images/tech.jpg", pro: true },
-  { id: 6, name: "Classic Formal", img: "/template_images/classic.jpg", pro: false },
-  { id: 7, name: "Bold Executive", img: "/template_images/executive.jpg", pro: true },
-  { id: 8, name: "Aesthetic", img: "/template_images/aesthetic.jpg", pro: true },
-];
+// pages/templates.js
+import Head from "next/head";
 
 export default function Templates() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => next(), 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const next = () => setIndex((i) => (i + 1) % templates.length);
-  const prev = () => setIndex((i) => (i - 1 + templates.length) % templates.length);
-  const template = templates[index];
+  const templates = [
+    {
+      name: "Corporate Europe",
+      type: "Pro",
+      img: "/template_images/corporate.jpg",
+      accent: "#174c3c",
+    },
+    {
+      name: "Minimal Nordic",
+      type: "Pro",
+      img: "/template_images/nordic.jpg",
+      accent: "#8b7355",
+    },
+    {
+      name: "Modern Creative",
+      type: "Free",
+      img: "/template_images/modern.jpg",
+      accent: "#00473e",
+    },
+    {
+      name: "Classic Elegance",
+      type: "Free",
+      img: "/template_images/classic.jpg",
+      accent: "#675d50",
+    },
+    {
+      name: "Tech Professional",
+      type: "Pro",
+      img: "/template_images/tech.jpg",
+      accent: "#0d5c63",
+    },
+    {
+      name: "Compact Focus",
+      type: "Free",
+      img: "/template_images/compact.jpg",
+      accent: "#51625d",
+    },
+    {
+      name: "Bold Header",
+      type: "Pro",
+      img: "/template_images/bold.jpg",
+      accent: "#c8702e",
+    },
+    {
+      name: "Soft Modern",
+      type: "Free",
+      img: "/template_images/soft.jpg",
+      accent: "#7a8b77",
+    },
+  ];
 
   return (
-    <div style={{ textAlign: "center", paddingTop: "100px", background: "#f6f1eb", minHeight: "100vh" }}>
-      <h2 style={{ fontSize: "2rem", color: "#2e2e2e", marginBottom: "1rem" }}>Choose Your Template</h2>
-      <div style={{ position: "relative", display: "inline-block" }}>
-        <img
-          src={template.img}
-          alt={template.name}
-          style={{
-            width: "480px",
-            height: "680px",
-            borderRadius: "16px",
-            border: "4px solid #a3b18a",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-            objectFit: "cover",
-          }}
-        />
-        {template.pro && (
-          <div
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              backgroundColor: "#ffd700",
-              padding: "4px 10px",
-              borderRadius: "8px",
-              fontWeight: "bold",
-              color: "#333",
-              fontSize: "0.8rem",
-            }}
-          >
-            PRO
-          </div>
-        )}
-      </div>
+    <>
+      <Head>
+        <title>Explore Templates | VitaOnline CV</title>
+      </Head>
 
-      <div style={{ marginTop: "20px" }}>
-        <button
-          onClick={prev}
-          style={{
-            marginRight: "10px",
-            backgroundColor: "#a3b18a",
-            border: "none",
-            color: "white",
-            padding: "10px 16px",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          onClick={next}
-          style={{
-            backgroundColor: "#a3b18a",
-            border: "none",
-            color: "white",
-            padding: "10px 16px",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          <ChevronRight />
-        </button>
-      </div>
+      {/* Header */}
+      <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-semibold text-gray-800">VitaOnline CV</h1>
+          <nav className="space-x-6 text-gray-700 font-medium">
+            <a href="/" className="hover:text-green-700">Home</a>
+            <a href="#pro" className="hover:text-green-700">Pro Templates</a>
+            <a
+              href="/builder"
+              className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition"
+            >
+              Build Your CV
+            </a>
+          </nav>
+        </div>
+      </header>
 
-      <p style={{ marginTop: "1rem", color: "#2e2e2e" }}>
-        <strong>{template.name}</strong>
-      </p>
-    </div>
+      <main className="bg-[#f8f5f0] pt-28 pb-16 min-h-screen">
+        <section className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">
+            Choose Your Template
+          </h2>
+          <p className="text-gray-600">
+            Browse our professionally designed templates — pick one and start editing instantly.
+          </p>
+        </section>
+
+        {/* Templates Grid */}
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-8 max-w-6xl mx-auto px-6">
+          {templates.map((tpl, index) => (
+            <div
+              key={index}
+              className="relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition group"
+            >
+              <img
+                src={tpl.img}
+                alt={tpl.name}
+                className="w-full h-56 object-cover transform group-hover:scale-105 transition"
+              />
+              {tpl.type === "Pro" && (
+                <span className="absolute top-3 right-3 bg-green-700 text-white text-xs px-3 py-1 rounded-full">
+                  Pro
+                </span>
+              )}
+
+              <div className="p-5">
+                <h3
+                  className="font-semibold text-lg mb-1"
+                  style={{ color: tpl.accent }}
+                >
+                  {tpl.name}
+                </h3>
+                <p className="text-gray-600 text-sm mb-3">
+                  {tpl.type === "Pro"
+                    ? "Premium design for professionals."
+                    : "Free and easy to customize."}
+                </p>
+                <a
+                  href="/builder"
+                  className="inline-block bg-green-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-800 transition"
+                >
+                  Use Template
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+
+      <footer className="bg-white border-t py-6 text-center text-gray-500 mt-10">
+        © {new Date().getFullYear()} VitaOnline CV. All rights reserved.
+      </footer>
+    </>
   );
 }
