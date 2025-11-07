@@ -1,17 +1,13 @@
 export default function Builder() {
   return (
-    <div style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      backgroundColor: "#fff8f0",
-      color: "#333",
-      fontFamily: "'Inter', sans-serif",
-    }}>
-      <h1>CV Builder</h1>
-      <p>This is where you’ll build your CV soon.</p>
+    <div style={{ padding: "120px 20px", textAlign: "center" }}>
+      <h1 style={{ fontSize: "2rem", marginBottom: "2rem" }}>
+        Start Building Your CV
+      </h1>
+      <p>
+        Choose your template, fill your details, and download your CV instantly.
+      </p>
+      {/* Future: form fields, upload photo, live preview */}
     </div>
   );
 }
