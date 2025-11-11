@@ -2,142 +2,106 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const templates = [
-    { name: "Corporate Europe", img: "/template_images/corporate.jpg", pro: false },
-    { name: "Minimal Nordic", img: "/template_images/minimal.jpg", pro: false },
-    { name: "Modern Creative", img: "/template_images/modern.jpg", pro: true },
-    { name: "Student Compact", img: "/template_images/student.jpg", pro: false },
-    { name: "Tech International", img: "/template_images/tech.jpg", pro: true },
-    { name: "Classic Professional", img: "/template_images/nordic.jpg", pro: false },
-    { name: "Elegant Global", img: "/template_images/international.jpg", pro: true },
-    { name: "Aesthetic", img: "/template_images/aesthetic.jpg", pro: true },
-  ];
-
-  const features = [
-    {
-      title: "AI-Powered Builder",
-      text: "Generate your CV instantly using smart AI suggestions.",
-      icon: "/icons/ai.svg",
-    },
-    {
-      title: "Professional Design",
-      text: "Choose from curated templates built by designers.",
-      icon: "/icons/design.svg",
-    },
-    {
-      title: "Share Anywhere",
-      text: "Download or share your CV instantly with one click.",
-      icon: "/icons/share.svg",
-    },
-  ];
-
   return (
-    <main className="bg-[#F8F4EF] min-h-screen text-[#2E2E2E]">
-      {/* Header */}
-      <header className="flex justify-between items-center px-10 py-6 bg-white shadow-sm sticky top-0 z-50">
-        <h1 className="text-2xl font-bold text-[#2E2E2E]">VitaOnline CV</h1>
+    <main className="min-h-screen bg-[#faf6f1] text-gray-800 font-sans">
+      {/* Navbar */}
+      <header className="flex justify-between items-center px-8 py-6">
+        <h1 className="text-2xl font-semibold text-gray-900">VitaOnline CV</h1>
         <Link
           href="/builder"
-          className="bg-[#9CAF88] text-white px-6 py-2 rounded-lg hover:bg-[#8DA87E] transition"
+          className="bg-[#a7b69e] text-white px-5 py-2 rounded-lg hover:bg-[#8da387] transition-all"
         >
           Build Your CV
         </Link>
       </header>
 
-      {/* Hero */}
-      <section className="text-center py-14 px-6">
-        <h2 className="text-3xl md:text-4xl font-semibold mb-3">
+      {/* Hero Section */}
+      <section className="text-center mt-10 px-6">
+        <h2 className="text-4xl font-bold mb-3">
           Build a CV that fits your style and career in seconds
         </h2>
         <p className="text-gray-600 mb-8">
           Create a polished, professional CV using expertly designed templates.
         </p>
-        <div className="space-x-4">
+
+        <div className="flex justify-center space-x-4 mb-10">
           <Link
             href="/builder"
-            className="bg-[#9CAF88] text-white px-6 py-3 rounded-lg hover:bg-[#8DA87E] transition"
+            className="bg-[#a7b69e] text-white px-6 py-3 rounded-lg hover:bg-[#8da387]"
           >
             Start Building
           </Link>
           <Link
             href="/templates"
-            className="text-[#9CAF88] font-medium hover:underline"
+            className="border border-[#a7b69e] text-[#a7b69e] px-6 py-3 rounded-lg hover:bg-[#f4f2ef]"
           >
             Explore Templates
           </Link>
         </div>
-      </section>
 
-      {/* AI Features */}
-      <section className="bg-white py-12 px-8 md:px-16">
-        <div className="grid md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
-          {features.map((f, i) => (
-            <div key={i} className="flex flex-col items-center">
-              <div className="bg-[#F8F4EF] rounded-full p-4 w-16 h-16 flex items-center justify-center mb-4 shadow-md">
-                <Image src={f.icon} alt={f.title} width={30} height={30} />
-              </div>
-              <h4 className="font-semibold text-lg mb-2 text-[#4A4A4A]">{f.title}</h4>
-              <p className="text-gray-600 text-sm max-w-xs">{f.text}</p>
+        {/* Example Mockup CV */}
+        <div className="flex justify-center">
+          <div className="bg-white shadow-lg p-8 rounded-2xl w-[360px] text-left border border-[#e5e3df]">
+            <h3 className="text-2xl font-semibold text-[#a7b69e]">
+              Sofia Yamamoto
+            </h3>
+            <p className="text-sm text-gray-500 mb-2">
+              UX Designer | Tokyo, Japan
+            </p>
+            <p className="text-gray-700 mb-4 text-sm leading-relaxed">
+              Passionate designer blending minimalism and functionality. Skilled
+              in Figma, UX Research, and Brand Identity.
+            </p>
+
+            <div className="border-t border-gray-200 pt-3 mt-3">
+              <p className="font-semibold text-gray-800">Experience</p>
+              <p className="text-sm">Design Lead – Miko Studio (2021–Present)</p>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* CV Mockup */}
-      <section className="flex justify-center py-12">
-        <div className="bg-white rounded-2xl shadow-xl w-[360px] p-8 border border-[#DCDAD4] hover:scale-[1.02] transition-transform duration-300">
-          <h3 className="text-xl font-semibold text-[#8DA87E]">Sofia Yamamoto</h3>
-          <p className="text-gray-700 mb-4">UX Designer | Tokyo, Japan</p>
-          <p className="text-gray-500 mb-2">
-            Passionate designer blending minimalism and functionality.
-          </p>
-          <p className="text-gray-500 mb-6">
-            Skilled in Figma, UX Research, and Brand Identity.
-          </p>
-          <h4 className="font-semibold text-[#4A4A4A] mb-2">Experience</h4>
-          <p className="text-gray-600 text-sm mb-1">
-            <strong>DesignWorks</strong> — Lead UX Designer (2020–Present)
-          </p>
-          <p className="text-gray-600 text-sm">Improved conversion by 32% through redesign.</p>
-        </div>
-      </section>
-
-      {/* Templates */}
-      <section className="px-10 py-12">
-        <h3 className="text-2xl font-semibold mb-8 text-center">
-          Explore Template Styles
-        </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {templates.map((tpl, index) => (
-            <div
-              key={index}
-              className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer"
-            >
-              <div className="overflow-hidden">
-                <Image
-                  src={tpl.img}
-                  alt={tpl.name}
-                  width={400}
-                  height={520}
-                  className="object-cover w-full h-64 transform group-hover:scale-110 transition-transform duration-500 ease-out"
-                />
-              </div>
-              {tpl.pro && (
-                <span className="absolute top-3 right-3 bg-[#9CAF88] text-white text-xs px-3 py-1 rounded-full shadow-md">
-                  PRO
-                </span>
-              )}
-              <div className="absolute bottom-0 w-full bg-[#00000088] text-white text-center py-2 text-sm font-medium group-hover:bg-[#000000AA] transition">
-                {tpl.name}
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Features Section */}
+      <section className="grid md:grid-cols-3 gap-6 mt-20 px-10 pb-20">
+        {[
+          {
+            title: "Beautiful Templates",
+            desc: "Choose from elegant, modern layouts tailored to your profession.",
+            icon: "/icons/design.svg",
+          },
+          {
+            title: "AI-Guided Builder",
+            desc: "Smart suggestions to highlight your best achievements.",
+            icon: "/icons/ai.svg",
+          },
+          {
+            title: "Instant Sharing",
+            desc: "Download or share your CV online with a single click.",
+            icon: "/icons/share.svg",
+          },
+        ].map((f) => (
+          <div
+            key={f.title}
+            className="bg-white p-6 rounded-2xl shadow-sm border border-[#e5e3df] text-center"
+          >
+            <Image
+              src={f.icon}
+              alt={f.title}
+              width={48}
+              height={48}
+              className="mx-auto mb-3"
+            />
+            <h3 className="text-lg font-semibold text-[#a7b69e] mb-2">
+              {f.title}
+            </h3>
+            <p className="text-sm text-gray-600">{f.desc}</p>
+          </div>
+        ))}
       </section>
 
       {/* Footer */}
-      <footer className="text-center py-6 text-sm text-gray-500">
-        © 2025 VitaOnline CV — Crafted for efficiency and style.
+      <footer className="text-center py-8 border-t border-[#e5e3df] text-gray-500 text-sm">
+        © {new Date().getFullYear()} VitaOnline CV — Crafted for efficiency and style.
       </footer>
     </main>
   );
