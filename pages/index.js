@@ -1,75 +1,144 @@
-import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+  const templates = [
+    { name: "Corporate Europe", img: "/template_images/corporate.jpg", pro: false },
+    { name: "Minimal Nordic", img: "/template_images/minimal.jpg", pro: false },
+    { name: "Modern Creative", img: "/template_images/modern.jpg", pro: true },
+    { name: "Student Compact", img: "/template_images/student.jpg", pro: false },
+    { name: "Tech International", img: "/template_images/tech.jpg", pro: true },
+    { name: "Classic Professional", img: "/template_images/nordic.jpg", pro: false },
+    { name: "Elegant Global", img: "/template_images/international.jpg", pro: true },
+    { name: "Aesthetic", img: "/template_images/aesthetic.jpg", pro: true },
+  ];
+
+  const features = [
+    {
+      title: "AI-Powered Builder",
+      text: "Generate your CV instantly using smart AI suggestions.",
+      icon: "/icons/ai.svg",
+    },
+    {
+      title: "Professional Design",
+      text: "Choose from curated templates built by designers.",
+      icon: "/icons/design.svg",
+    },
+    {
+      title: "Share Anywhere",
+      text: "Download or share your CV instantly with one click.",
+      icon: "/icons/share.svg",
+    },
+  ];
+
   return (
-    <>
-      <Head>
-        <title>VitaOnline CV | Build Your Professional CV</title>
-        <meta name="description" content="Build a CV that fits your style and career in seconds." />
-      </Head>
+    <main className="bg-[#F8F4EF] min-h-screen text-[#2E2E2E]">
+      {/* Header */}
+      <header className="flex justify-between items-center px-10 py-6 bg-white shadow-sm sticky top-0 z-50">
+        <h1 className="text-2xl font-bold text-[#2E2E2E]">VitaOnline CV</h1>
+        <Link
+          href="/builder"
+          className="bg-[#9CAF88] text-white px-6 py-2 rounded-lg hover:bg-[#8DA87E] transition"
+        >
+          Build Your CV
+        </Link>
+      </header>
 
-      {/* Hero Section */}
-      <section className="min-h-screen bg-[#FAF8F4] text-[#3C3C3B] flex flex-col items-center justify-center px-6 py-20">
-        <h1 className="text-5xl font-semibold mb-4 tracking-tight text-[#3C3C3B]">
-          VitaOnline <span className="text-[#C86E3B]">CV</span>
-        </h1>
-        <p className="text-lg text-[#6F6F6E] max-w-2xl text-center mb-10">
-          Build a CV that fits your <span className="text-[#C86E3B]">style</span> and career in just a few seconds.
+      {/* Hero */}
+      <section className="text-center py-14 px-6">
+        <h2 className="text-3xl md:text-4xl font-semibold mb-3">
+          Build a CV that fits your style and career in seconds
+        </h2>
+        <p className="text-gray-600 mb-8">
+          Create a polished, professional CV using expertly designed templates.
         </p>
-
-        {/* Buttons */}
-        <div className="flex gap-6 mb-16">
-          <a href="/builder" className="bg-[#C86E3B] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#b15e32] transition">
+        <div className="space-x-4">
+          <Link
+            href="/builder"
+            className="bg-[#9CAF88] text-white px-6 py-3 rounded-lg hover:bg-[#8DA87E] transition"
+          >
             Start Building
-          </a>
-          <a href="/templates" className="border border-[#C86E3B] text-[#C86E3B] px-6 py-3 rounded-xl hover:bg-[#FFF2E8] transition">
+          </Link>
+          <Link
+            href="/templates"
+            className="text-[#9CAF88] font-medium hover:underline"
+          >
             Explore Templates
-          </a>
-        </div>
-
-        {/* Mock CV Example */}
-        <div className="bg-white shadow-xl rounded-3xl p-10 max-w-3xl w-full relative">
-          <div className="absolute -top-5 -left-5 bg-[#C86E3B] text-white px-4 py-1 rounded-full text-sm font-medium shadow">
-            Pro Template
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="w-32 h-32 rounded-full bg-[#E6E6E6]" />
-            <div>
-              <h2 className="text-2xl font-bold">Sofia Yamamoto</h2>
-              <p className="text-[#6F6F6E]">UX Designer | Tokyo, Japan</p>
-              <p className="mt-2 text-sm text-[#6F6F6E]">
-                Passionate designer blending minimalism and functionality. Skilled in Figma, UX Research, and Brand Identity.
-              </p>
-            </div>
-          </div>
+          </Link>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="bg-[#EAE7E1] py-20 px-6">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10 text-center">
-          <div>
-            <img src="/icons/design.svg" alt="design icon" className="mx-auto mb-4 w-12 h-12" />
-            <h3 className="text-lg font-semibold mb-2">Beautiful Templates</h3>
-            <p className="text-[#6F6F6E] text-sm">Choose from elegant, modern layouts tailored to your profession.</p>
-          </div>
-          <div>
-            <img src="/icons/ai.svg" alt="ai icon" className="mx-auto mb-4 w-12 h-12" />
-            <h3 className="text-lg font-semibold mb-2">AI-Guided Builder</h3>
-            <p className="text-[#6F6F6E] text-sm">Smart suggestions to highlight your best achievements.</p>
-          </div>
-          <div>
-            <img src="/icons/share.svg" alt="share icon" className="mx-auto mb-4 w-12 h-12" />
-            <h3 className="text-lg font-semibold mb-2">Instant Sharing</h3>
-            <p className="text-[#6F6F6E] text-sm">Download or share your CV online with a single click.</p>
-          </div>
+      {/* AI Features */}
+      <section className="bg-white py-12 px-8 md:px-16">
+        <div className="grid md:grid-cols-3 gap-10 text-center max-w-6xl mx-auto">
+          {features.map((f, i) => (
+            <div key={i} className="flex flex-col items-center">
+              <div className="bg-[#F8F4EF] rounded-full p-4 w-16 h-16 flex items-center justify-center mb-4 shadow-md">
+                <Image src={f.icon} alt={f.title} width={30} height={30} />
+              </div>
+              <h4 className="font-semibold text-lg mb-2 text-[#4A4A4A]">{f.title}</h4>
+              <p className="text-gray-600 text-sm max-w-xs">{f.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CV Mockup */}
+      <section className="flex justify-center py-12">
+        <div className="bg-white rounded-2xl shadow-xl w-[360px] p-8 border border-[#DCDAD4] hover:scale-[1.02] transition-transform duration-300">
+          <h3 className="text-xl font-semibold text-[#8DA87E]">Sofia Yamamoto</h3>
+          <p className="text-gray-700 mb-4">UX Designer | Tokyo, Japan</p>
+          <p className="text-gray-500 mb-2">
+            Passionate designer blending minimalism and functionality.
+          </p>
+          <p className="text-gray-500 mb-6">
+            Skilled in Figma, UX Research, and Brand Identity.
+          </p>
+          <h4 className="font-semibold text-[#4A4A4A] mb-2">Experience</h4>
+          <p className="text-gray-600 text-sm mb-1">
+            <strong>DesignWorks</strong> — Lead UX Designer (2020–Present)
+          </p>
+          <p className="text-gray-600 text-sm">Improved conversion by 32% through redesign.</p>
+        </div>
+      </section>
+
+      {/* Templates */}
+      <section className="px-10 py-12">
+        <h3 className="text-2xl font-semibold mb-8 text-center">
+          Explore Template Styles
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {templates.map((tpl, index) => (
+            <div
+              key={index}
+              className="relative rounded-xl overflow-hidden shadow-md group cursor-pointer"
+            >
+              <div className="overflow-hidden">
+                <Image
+                  src={tpl.img}
+                  alt={tpl.name}
+                  width={400}
+                  height={520}
+                  className="object-cover w-full h-64 transform group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
+              </div>
+              {tpl.pro && (
+                <span className="absolute top-3 right-3 bg-[#9CAF88] text-white text-xs px-3 py-1 rounded-full shadow-md">
+                  PRO
+                </span>
+              )}
+              <div className="absolute bottom-0 w-full bg-[#00000088] text-white text-center py-2 text-sm font-medium group-hover:bg-[#000000AA] transition">
+                {tpl.name}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#FAF8F4] text-[#6F6F6E] text-center py-8 border-t border-[#E3E0DB]">
-        <p>© 2025 VitaOnline CV — Crafted for efficiency and style.</p>
+      <footer className="text-center py-6 text-sm text-gray-500">
+        © 2025 VitaOnline CV — Crafted for efficiency and style.
       </footer>
-    </>
+    </main>
   );
 }
