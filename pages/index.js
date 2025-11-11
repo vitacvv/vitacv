@@ -3,105 +3,120 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#faf6f1] text-gray-800 font-sans">
-      {/* Navbar */}
-      <header className="flex justify-between items-center px-8 py-6">
-        <h1 className="text-2xl font-semibold text-gray-900">VitaOnline CV</h1>
-        <Link
-          href="/builder"
-          className="bg-[#a7b69e] text-white px-5 py-2 rounded-lg hover:bg-[#8da387] transition-all"
-        >
-          Build Your CV
-        </Link>
+    <main className="min-h-screen bg-[#f8f6f3] text-gray-800 font-sans">
+      {/* HEADER */}
+      <header className="flex justify-between items-center px-8 py-6 border-b border-[#e8e5e1] bg-white/70 backdrop-blur-md sticky top-0 z-10">
+        <h1 className="text-2xl font-semibold text-[#4a4a4a]">
+          <span className="text-[#9cab88]">VitaOnline</span> CV
+        </h1>
+        <nav className="space-x-6 text-sm font-medium">
+          <Link href="#features" className="hover:text-[#9cab88]">
+            Features
+          </Link>
+          <Link href="/templates" className="hover:text-[#9cab88]">
+            Templates
+          </Link>
+          <Link href="/builder" className="hover:text-[#9cab88]">
+            Builder
+          </Link>
+          <Link href="#contact" className="hover:text-[#9cab88]">
+            Contact
+          </Link>
+        </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="text-center mt-10 px-6">
-        <h2 className="text-4xl font-bold mb-3">
-          Build a CV that fits your style and career in seconds
+      {/* HERO */}
+      <section className="flex flex-col items-center text-center py-20 px-4">
+        <h2 className="text-4xl font-semibold mb-4 text-[#4a4a4a]">
+          Build a CV that fits your{" "}
+          <span className="text-[#9cab88]">style and career</span>
         </h2>
-        <p className="text-gray-600 mb-8">
-          Create a polished, professional CV using expertly designed templates.
+        <p className="text-gray-600 mb-8 max-w-xl">
+          Create a stunning professional CV in seconds. Choose your favorite
+          style, customize it easily, and download instantly.
         </p>
 
-        <div className="flex justify-center space-x-4 mb-10">
-          <Link
-            href="/builder"
-            className="bg-[#a7b69e] text-white px-6 py-3 rounded-lg hover:bg-[#8da387]"
-          >
-            Start Building
-          </Link>
-          <Link
-            href="/templates"
-            className="border border-[#a7b69e] text-[#a7b69e] px-6 py-3 rounded-lg hover:bg-[#f4f2ef]"
-          >
-            Explore Templates
-          </Link>
-        </div>
-
-        {/* Example Mockup CV */}
-        <div className="flex justify-center">
-          <div className="bg-white shadow-lg p-8 rounded-2xl w-[360px] text-left border border-[#e5e3df]">
-            <h3 className="text-2xl font-semibold text-[#a7b69e]">
-              Sofia Yamamoto
-            </h3>
-            <p className="text-sm text-gray-500 mb-2">
-              UX Designer | Tokyo, Japan
-            </p>
-            <p className="text-gray-700 mb-4 text-sm leading-relaxed">
-              Passionate designer blending minimalism and functionality. Skilled
-              in Figma, UX Research, and Brand Identity.
-            </p>
-
-            <div className="border-t border-gray-200 pt-3 mt-3">
-              <p className="font-semibold text-gray-800">Experience</p>
-              <p className="text-sm">Design Lead – Miko Studio (2021–Present)</p>
-            </div>
+        <div className="relative w-[320px] h-[420px] border-4 border-[#9cab88]/40 rounded-2xl overflow-hidden shadow-lg">
+          <Image
+            src="/template_images/executive.jpg"
+            alt="CV Mockup Example"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+          <div className="absolute top-4 right-4 bg-[#9cab88] text-white text-xs px-3 py-1 rounded-full shadow-md">
+            PRO TEMPLATE
           </div>
         </div>
+
+        <Link
+          href="/templates"
+          className="mt-10 bg-[#9cab88] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#8ca87e] transition"
+        >
+          Explore Templates
+        </Link>
       </section>
 
-      {/* Features Section */}
-      <section className="grid md:grid-cols-3 gap-6 mt-20 px-10 pb-20">
-        {[
-          {
-            title: "Beautiful Templates",
-            desc: "Choose from elegant, modern layouts tailored to your profession.",
-            icon: "/icons/design.svg",
-          },
-          {
-            title: "AI-Guided Builder",
-            desc: "Smart suggestions to highlight your best achievements.",
-            icon: "/icons/ai.svg",
-          },
-          {
-            title: "Instant Sharing",
-            desc: "Download or share your CV online with a single click.",
-            icon: "/icons/share.svg",
-          },
-        ].map((f) => (
-          <div
-            key={f.title}
-            className="bg-white p-6 rounded-2xl shadow-sm border border-[#e5e3df] text-center"
-          >
+      {/* FEATURES */}
+      <section id="features" className="py-16 bg-white border-t border-[#e8e5e1]">
+        <h3 className="text-2xl font-semibold text-center mb-10">
+          Why choose VitaOnline CV?
+        </h3>
+        <div className="grid md:grid-cols-3 gap-8 px-10 text-center">
+          <div>
             <Image
-              src={f.icon}
-              alt={f.title}
+              src="/icons/design.svg"
               width={48}
               height={48}
-              className="mx-auto mb-3"
+              alt="Design Icon"
+              className="mx-auto mb-4"
             />
-            <h3 className="text-lg font-semibold text-[#a7b69e] mb-2">
-              {f.title}
-            </h3>
-            <p className="text-sm text-gray-600">{f.desc}</p>
+            <h4 className="font-semibold mb-2 text-[#9cab88]">
+              Elegant Design
+            </h4>
+            <p className="text-gray-600">
+              Crafted templates that blend style and clarity for modern
+              professionals.
+            </p>
           </div>
-        ))}
+
+          <div>
+            <Image
+              src="/icons/ai.svg"
+              width={48}
+              height={48}
+              alt="AI Icon"
+              className="mx-auto mb-4"
+            />
+            <h4 className="font-semibold mb-2 text-[#9cab88]">
+              Smart Builder
+            </h4>
+            <p className="text-gray-600">
+              Fill your information once—watch your CV auto-format instantly.
+            </p>
+          </div>
+
+          <div>
+            <Image
+              src="/icons/share.svg"
+              width={48}
+              height={48}
+              alt="Share Icon"
+              className="mx-auto mb-4"
+            />
+            <h4 className="font-semibold mb-2 text-[#9cab88]">Instant Export</h4>
+            <p className="text-gray-600">
+              Download or share your polished CV in seconds with one click.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer className="text-center py-8 border-t border-[#e5e3df] text-gray-500 text-sm">
-        © {new Date().getFullYear()} VitaOnline CV — Crafted for efficiency and style.
+      {/* FOOTER */}
+      <footer
+        id="contact"
+        className="text-center text-sm text-gray-500 py-8 border-t border-[#e8e5e1]"
+      >
+        © {new Date().getFullYear()} VitaOnline CV — Your career, your design.
       </footer>
     </main>
   );
