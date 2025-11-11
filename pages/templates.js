@@ -1,129 +1,91 @@
-import Image from "next/image";
-import Link from "next/link";
+// pages/templates.js
+import { useEffect, useState } from "react";
+import TemplateCard from "../components/TemplateCard";
 
-export default function Templates() {
-  const templates = [
-    {
-      name: "Modern Sage",
-      img: "/template_images/modern_sage.jpg",
-      type: "Free",
-    },
-    {
-      name: "Corporate Pro",
-      img: "/template_images/corporate_pro.jpg",
-      type: "Pro",
-    },
-    {
-      name: "Elegant Beige",
-      img: "/template_images/elegant_beige.jpg",
-      type: "Free",
-    },
-    {
-      name: "Minimal Resume",
-      img: "/template_images/minimal_resume.jpg",
-      type: "Pro",
-    },
-    {
-      name: "Creative Flow",
-      img: "/template_images/creative_flow.jpg",
-      type: "Free",
-    },
-    {
-      name: "Classic Line",
-      img: "/template_images/classic_line.jpg",
-      type: "Free",
-    },
-    {
-      name: "Modernist CV",
-      img: "/template_images/modernist_cv.jpg",
-      type: "Pro",
-    },
-    {
-      name: "Executive",
-      img: "/template_images/executive.jpg",
-      type: "Pro",
-    },
-  ];
+const TEMPLATES = [
+  { name: "Minimal Nordic", img: "/template_images/minimal.jpg", type: "Free" },
+  { name: "Student Compact", img: "/template_images/classic.jpg", type: "Free" },
+  { name: "Business Classic", img: "/template_images/classic_line.jpg", type: "Free" },
+  { name: "Tech International", img: "/template_images/tech.jpg", type: "Free" },
+
+  { name: "Corporate Europe", img: "/template_images/corporate_pro.jpg", type: "Pro" },
+  { name: "Elegant Beige", img: "/template_images/elegant.jpg", type: "Pro" },
+  { name: "Aesthetic Sage", img: "/template_images/aesthetic.jpg", type: "Pro" },
+  { name: "Modern Creative", img: "/template_images/modern.jpg", type: "Pro" },
+];
+
+export default function TemplatesPage() {
+  const [isProUser, setIsProUser] = useState(false);
+  const [trialPro, setTrialPro] = useState(false);
+  const [showUnlock, setShowUnlock] = useState(false);
+
+  useEffect(() => {
+    const pro = localStorage.getItem("vita_isPro");
+    if (pro === "1") setIsProUser(true);
+    const t = localStorage.getItem("vita_trial");
+    if (t === "1") setTrialPro(true);
+  }, []);
+
+  function tryPro() {
+    localStorage.setItem("vita_trial", "1");
+    setTrialPro(true);
+    alert("Trial enabled — you can preview Pro templates.");
+  }
+  function purchaseMock() {
+    localStorage.setItem("vita_isPro", "1");
+    setIsProUser(true);
+    localStorage.removeItem("vita_trial");
+    setTrialPro(false);
+    alert("Thank you — Pro unlocked (mock).");
+  }
+
+  function useTemplate(tpl) {
+    // if template is pro and user not pro -> show unlock prompt on download/Use
+    if (tpl.type === "Pro" && !isProUser) {
+      // allow preview, but downloads will be watermarked
+      const ok = confirm("This is a Pro template. Preview is available. Download will include a watermark. Try or unlock Pro?");
+      if (ok) {
+        // store selection and go to builder
+        localStorage.setItem("vita_selected_template", JSON.stringify(tpl));
+        window.location.href = "/builder";
+      }
+    } else {
+      localStorage.setItem("vita_selected_template", JSON.stringify(tpl));
+      window.location.href = "/builder";
+    }
+  }
 
   return (
-    <main className="min-h-screen bg-[#faf6f1] text-gray-800 font-sans">
-      {/* Header */}
-      <header className="flex justify-between items-center px-8 py-6 border-b border-[#e5e3df]">
-        <h1 className="text-2xl font-semibold text-gray-900">VitaOnline CV</h1>
-        <div className="space-x-3">
-          <Link
-            href="/builder"
-            className="bg-[#a7b69e] text-white px-5 py-2 rounded-lg hover:bg-[#8da387] transition-all"
-          >
-            Build Your CV
-          </Link>
-          <Link
-            href="/"
-            className="border border-[#a7b69e] text-[#a7b69e] px-5 py-2 rounded-lg hover:bg-[#f4f2ef]"
-          >
-            Home
-          </Link>
-        </div>
-      </header>
-
-      {/* Intro */}
-      <section className="text-center mt-10 mb-8 px-4">
-        <h2 className="text-3xl font-bold text-[#a7b69e] mb-2">
-          Explore Professional Templates
-        </h2>
-        <p className="text-gray-600">
-          Pick the design that matches your style and career — Pro versions unlock more customization.
-        </p>
-      </section>
-
-      {/* Template Grid */}
-      <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-10 pb-20">
-        {templates.map((template) => (
-          <div
-            key={template.name}
-            className="relative bg-white border border-[#e5e3df] rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-all"
-          >
-            {/* Pro Badge */}
-            {template.type === "Pro" && (
-              <span className="absolute top-3 right-3 bg-[#a7b69e] text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
-                PRO
-              </span>
-            )}
-
-            {/* Image */}
-            <div className="h-64 relative">
-              <Image
-                src={template.img}
-                alt={template.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Template Info */}
-            <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold text-[#4a4a4a]">
-                {template.name}
-              </h3>
-              <p className="text-sm text-gray-500 mb-4">
-                {template.type === "Pro" ? "Premium Design" : "Free Template"}
-              </p>
-              <Link
-                href="/builder"
-                className="inline-block bg-[#a7b69e] text-white px-4 py-2 rounded-lg hover:bg-[#8da387] text-sm"
-              >
-                Use This Template
-              </Link>
+    <div style={{ background: "var(--bg)", minHeight: "100vh" }}>
+      <div className="container" style={{ paddingTop: 18 }}>
+        <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
+          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--card)", display: "flex", alignItems: "center", justifyContent: "center" }}>📄</div>
+            <div>
+              <h1 style={{ margin: 0 }}>VITA OnlineCV</h1>
+              <div style={{ fontSize: 12, color: "var(--muted)" }}>Your pick for a professional curriculum</div>
             </div>
           </div>
-        ))}
-      </section>
 
-      {/* Footer */}
-      <footer className="text-center py-8 border-t border-[#e5e3df] text-gray-500 text-sm">
-        © {new Date().getFullYear()} VitaOnline CV — Build your professional profile.
-      </footer>
-    </main>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className="btn btn-outline" onClick={() => tryPro()}>Try Pro</button>
+            <button className="btn btn-primary" onClick={() => purchaseMock()}>Unlock Pro</button>
+          </div>
+        </header>
+
+        <main style={{ marginTop: 18 }}>
+          <h2 style={{ marginBottom: 6 }}>Explore Templates</h2>
+          <p style={{ color: "var(--muted)" }}>Click a template to use it in the builder. Pro templates show watermark for non-Pro users.</p>
+
+          <div className="templates-grid" style={{ marginTop: 18 }}>
+            {TEMPLATES.map((tpl) => (
+              <TemplateCard key={tpl.name} tpl={tpl} isProUser={isProUser || trialPro} onTryPro={() => tryPro()} onUse={useTemplate} />
+            ))}
+          </div>
+        </main>
+
+        <div style={{ height: 80 }} />
+      </div>
+    </div>
   );
 }
-
