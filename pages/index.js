@@ -1,123 +1,173 @@
-import Image from "next/image";
+// pages/index.js
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import TemplateCard from "../components/TemplateCard";
+
+const ALL_TEMPLATES = [
+  { name: "Minimal Nordic", img: "/template_images/minimal.jpg", type: "Free" },
+  { name: "Student Compact", img: "/template_images/classic.jpg", type: "Free" },
+  { name: "Business Classic", img: "/template_images/classic_line.jpg", type: "Free" },
+  { name: "Tech International", img: "/template_images/tech.jpg", type: "Free" },
+
+  { name: "Corporate Europe", img: "/template_images/corporate_pro.jpg", type: "Pro" },
+  { name: "Elegant Beige", img: "/template_images/elegant.jpg", type: "Pro" },
+  { name: "Aesthetic Sage", img: "/template_images/aesthetic.jpg", type: "Pro" },
+  { name: "Modern Creative", img: "/template_images/modern.jpg", type: "Pro" },
+];
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(false);
+  const [isProUser, setIsProUser] = useState(false); // simulate real purchase
+  const [trialPro, setTrialPro] = useState(false);
+
+  useEffect(() => {
+    // load saved values
+    const savedTheme = localStorage.getItem("viva_theme");
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    }
+    const pro = localStorage.getItem("vita_isPro");
+    if (pro === "1") setIsProUser(true);
+    const t = localStorage.getItem("vita_trial");
+    if (t === "1") setTrialPro(true);
+  }, []);
+
+  function toggleTheme() {
+    const now = !isDark;
+    setIsDark(now);
+    if (now) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("viva_theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("viva_theme", "light");
+    }
+  }
+
+  function startTrial() {
+    // trial allows preview, but downloads of Pro will remain watermarked
+    setTrialPro(true);
+    localStorage.setItem("vita_trial", "1");
+    alert("Trial started — you can preview Pro templates. Download still contains watermark until purchase.");
+  }
+
+  function purchaseProMock() {
+    // MOCK purchase flow — replace with real integration later
+    setIsProUser(true);
+    setTrialPro(false);
+    localStorage.setItem("vita_isPro", "1");
+    localStorage.removeItem("vita_trial");
+    alert("Thank you — Pro unlocked (mock). Downloads will be watermark-free.");
+  }
+
+  function handleUseTemplate(tpl) {
+    // go to builder with template selected
+    // for now, store selection in localStorage and navigate to /builder
+    localStorage.setItem("vita_selected_template", JSON.stringify(tpl));
+    window.location.href = "/builder";
+  }
+
   return (
-    <main className="min-h-screen bg-[#f8f6f3] text-gray-800 font-sans">
-      {/* HEADER */}
-      <header className="flex justify-between items-center px-8 py-6 border-b border-[#e8e5e1] bg-white/70 backdrop-blur-md sticky top-0 z-10">
-        <h1 className="text-2xl font-semibold text-[#4a4a4a]">
-          <span className="text-[#9cab88]">VitaOnline</span> CV
-        </h1>
-        <nav className="space-x-6 text-sm font-medium">
-          <Link href="#features" className="hover:text-[#9cab88]">
-            Features
-          </Link>
-          <Link href="/templates" className="hover:text-[#9cab88]">
-            Templates
-          </Link>
-          <Link href="/builder" className="hover:text-[#9cab88]">
-            Builder
-          </Link>
-          <Link href="#contact" className="hover:text-[#9cab88]">
-            Contact
-          </Link>
-        </nav>
+    <div>
+      <header className="header">
+        <div className="container header-inner">
+          <div className="brand">
+            <div className="logo">📄</div>
+            <div>
+              <h1>VITA OnlineCV</h1>
+              <p>Your pick for a professional curriculum</p>
+            </div>
+          </div>
+
+          <nav className="nav">
+            <a href="#features">Features</a>
+            <Link href="/templates">Templates</Link>
+            <a href="/builder">Builder</a>
+            <button className="btn btn-outline" onClick={toggleTheme}>
+              {isDark ? "Light" : "Dark"}
+            </button>
+            {isProUser ? (
+              <button className="btn btn-primary" onClick={() => alert("Pro features active")}>
+                Pro
+              </button>
+            ) : (
+              <div style={{ display: "flex", gap: 8 }}>
+                <button className="btn btn-outline" onClick={startTrial}>Try Pro</button>
+                <button className="btn btn-primary" onClick={purchaseProMock}>Unlock Pro</button>
+              </div>
+            )}
+          </nav>
+        </div>
       </header>
 
-      {/* HERO */}
-      <section className="flex flex-col items-center text-center py-20 px-4">
-        <h2 className="text-4xl font-semibold mb-4 text-[#4a4a4a]">
-          Build a CV that fits your{" "}
-          <span className="text-[#9cab88]">style and career</span>
-        </h2>
-        <p className="text-gray-600 mb-8 max-w-xl">
-          Create a stunning professional CV in seconds. Choose your favorite
-          style, customize it easily, and download instantly.
-        </p>
+      <main className="container">
+        <section className="hero">
+          <div className="hero-left">
+            <h2 className="title">Build a CV that fits your <span style={{ color: "var(--dark-green)" }}>style and career</span></h2>
+            <p className="lead">VITA OnlineCV helps you design a clean, professional, and modern CV that gets attention — in minutes.</p>
 
-        <div className="relative w-[320px] h-[420px] border-4 border-[#9cab88]/40 rounded-2xl overflow-hidden shadow-lg">
-          <Image
-            src="/template_images/executive.jpg"
-            alt="CV Mockup Example"
-            fill
-            style={{ objectFit: "cover" }}
-          />
-          <div className="absolute top-4 right-4 bg-[#9cab88] text-white text-xs px-3 py-1 rounded-full shadow-md">
-            PRO TEMPLATE
+            <div style={{ display: "flex", gap: 12 }}>
+              <button className="btn btn-primary" onClick={() => (window.location.href = "/builder")}>Start Building</button>
+              <Link href="/templates"><button className="btn btn-outline">Explore Templates</button></Link>
+            </div>
+
+            <div className="features" style={{ marginTop: 26 }}>
+              <div className="feature">
+                <div style={{ fontSize: 22, marginBottom: 8 }}>🧩</div>
+                <h4 style={{ margin: 0, marginBottom: 6 }}>Clean Design</h4>
+                <p style={{ color: "var(--muted)" }}>Minimal templates that highlight your strengths.</p>
+              </div>
+
+              <div className="feature">
+                <div style={{ fontSize: 22, marginBottom: 8 }}>🤖</div>
+                <h4 style={{ margin: 0, marginBottom: 6 }}>AI Smart Builder</h4>
+                <p style={{ color: "var(--muted)" }}>Guided suggestions to refine phrasing and structure.</p>
+              </div>
+
+              <div className="feature">
+                <div style={{ fontSize: 22, marginBottom: 8 }}>📤</div>
+                <h4 style={{ margin: 0, marginBottom: 6 }}>Share Easily</h4>
+                <p style={{ color: "var(--muted)" }}>Export or share your CV in seconds.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-right">
+            {/* Mockup preview (Pro template example) */}
+            <div className="mockup">
+              <img src="/template_images/executive.jpg" alt="Mockup" style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }} />
+              <div style={{ position: "absolute", top: 12, right: 12 }}>
+                <div style={{ background: "var(--pro-badge-bg)", color: "#fff", padding: "6px 10px", borderRadius: 999, fontWeight: 700, fontSize: 12 }}>PRO TEMPLATE</div>
+              </div>
+              {/* watermark shown on mockup? here the preview includes image with watermark baked in; for other pro templates we show overlay in TemplateCard */}
+            </div>
+          </div>
+        </section>
+
+        {/* small template preview strip (first 4 templates from ALL_TEMPLATES) */}
+        <section style={{ marginTop: 28 }}>
+          <h3 style={{ marginBottom: 12 }}>Popular templates</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12 }}>
+            {ALL_TEMPLATES.slice(0,4).map((tpl) => (
+              <div key={tpl.name} style={{ cursor: "pointer" }} onClick={() => handleUseTemplate(tpl)}>
+                <TemplateCard tpl={tpl} isProUser={isProUser || trialPro} onTryPro={() => startTrial()} onUse={handleUseTemplate} />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="features" style={{ marginTop: 46 }}>
+          <h3 style={{ marginBottom: 12 }}>Why VITA OnlineCV</h3>
+          <p style={{ color: "var(--muted)" }}>Templates tested against real hiring trends: Corporate, Minimal, Creative, and ATS-friendly formats for big companies.</p>
+        </section>
+
+        <div className="footer" style={{ marginTop: 48 }}>
+          <div className="footer">
+            © {new Date().getFullYear()} VITA OnlineCV — Your pick for a professional curriculum.
           </div>
         </div>
-
-        <Link
-          href="/templates"
-          className="mt-10 bg-[#9cab88] text-white px-8 py-3 rounded-lg shadow-md hover:bg-[#8ca87e] transition"
-        >
-          Explore Templates
-        </Link>
-      </section>
-
-      {/* FEATURES */}
-      <section id="features" className="py-16 bg-white border-t border-[#e8e5e1]">
-        <h3 className="text-2xl font-semibold text-center mb-10">
-          Why choose VitaOnline CV?
-        </h3>
-        <div className="grid md:grid-cols-3 gap-8 px-10 text-center">
-          <div>
-            <Image
-              src="/icons/design.svg"
-              width={48}
-              height={48}
-              alt="Design Icon"
-              className="mx-auto mb-4"
-            />
-            <h4 className="font-semibold mb-2 text-[#9cab88]">
-              Elegant Design
-            </h4>
-            <p className="text-gray-600">
-              Crafted templates that blend style and clarity for modern
-              professionals.
-            </p>
-          </div>
-
-          <div>
-            <Image
-              src="/icons/ai.svg"
-              width={48}
-              height={48}
-              alt="AI Icon"
-              className="mx-auto mb-4"
-            />
-            <h4 className="font-semibold mb-2 text-[#9cab88]">
-              Smart Builder
-            </h4>
-            <p className="text-gray-600">
-              Fill your information once—watch your CV auto-format instantly.
-            </p>
-          </div>
-
-          <div>
-            <Image
-              src="/icons/share.svg"
-              width={48}
-              height={48}
-              alt="Share Icon"
-              className="mx-auto mb-4"
-            />
-            <h4 className="font-semibold mb-2 text-[#9cab88]">Instant Export</h4>
-            <p className="text-gray-600">
-              Download or share your polished CV in seconds with one click.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer
-        id="contact"
-        className="text-center text-sm text-gray-500 py-8 border-t border-[#e8e5e1]"
-      >
-        © {new Date().getFullYear()} VitaOnline CV — Your career, your design.
-      </footer>
-    </main>
+      </main>
+    </div>
   );
 }
